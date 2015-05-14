@@ -15,7 +15,9 @@ var Presence = function () {
     self.video = null;
     self.showSnapshots = false;
     self.dropElement = null;
+    var localStream = null;
     var videoObj = { "video": true };
+    var url = window.URL || window.webkitURL;
 
     self.errBack = function(error) {
         console.log("Video capture error: ", error.code);
@@ -42,7 +44,10 @@ var Presence = function () {
 
     /* CONTROLLERS */
     self.stop = function () {
-        if (self.interval) window.clearInterval(self.interval);
+        if (self.interval){
+          window.clearInterval(self.interval);
+        }
+        localStream.stop();
     };
 
     self.start = function() {
@@ -50,21 +55,16 @@ var Presence = function () {
         if(!self.canvas || !self.video) console.error("Configure canvas and video elements");
         self.context = self.canvas.getContext("2d");
 
+        navigator.getUserMedia = (navigator.getUserMedia ||
+                          navigator.webkitGetUserMedia ||
+                          navigator.mozGetUserMedia ||
+                          navigator.msGetUserMedia);
+
         // Start video listeners
-        if(navigator.getUserMedia) { // Standard
+        if(navigator.getUserMedia) {
             navigator.getUserMedia(videoObj, function(stream) {
-                self.video.src = stream;
-                self.video.play();
-            }, self.errBack);
-        } else if(navigator.webkitGetUserMedia) { // WebKit-prefixed
-            navigator.webkitGetUserMedia(videoObj, function(stream){
-                self.video.src = window.URL.createObjectURL(stream);
-                self.video.play();
-            }, self.errBack);
-        }
-        else if(navigator.mozGetUserMedia) { // Firefox-prefixed
-            navigator.mozGetUserMedia(videoObj, function(stream){
-                self.video.src = window.URL.createObjectURL(stream);
+                localStream = stream;
+                self.video.src = url ? url.createObjectURL(stream) : stream;
                 self.video.play();
             }, self.errBack);
         }
@@ -72,7 +72,7 @@ var Presence = function () {
         self.interval = window.setInterval(function() {
             self.context.drawImage(video, 0, 0, 640, 480);
             self.compare(self.canvas.toDataURL('image/png'));
-        },self.rate)
+        }, self.rate)
     };
 
     self.compare = function  (elem) {
