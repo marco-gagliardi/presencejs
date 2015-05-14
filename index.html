@@ -24,16 +24,16 @@
     //override  callbacks
     p.onEnter = function(data) {
         console.log("Welocome!")
-    }
+    };
     p.onLeave = function(data) {
         console.log("Goodbye")
-    }
+    };
     p.isPresent = function(data) {
         document.getElementById("present").style.display = "block";
         document.getElementById("notPresent").style.display = "none";
         document.getElementById("stats").innerHTML = "Difference: " + data.mismatch + "% - Red: " + data.red + "% - Blue:" + data.blue + "% - Green:" + data.green + "% - Brightness: " + data.brightness + "%";
 
-    }
+    };
     p.isNotPresent = function(data) {
         document.getElementById("notPresent").style.display = "block";
         document.getElementById("present").style.display = "none";
