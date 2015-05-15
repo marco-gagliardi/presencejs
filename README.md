@@ -4,6 +4,9 @@ A JavaScript library that uses HTML5controllers to detect whether someone is in 
 ####Dependencies: 
 Requires [Resemble.js](http://huddle.github.io/Resemble.js/) image analysis library
 
+##Demo
+You can find a demo [here](http://marco-gagliardi.github.io/presencejs/)
+
 ##Usage
 
 Include dependencies and scripts:
