@@ -2,13 +2,13 @@
 <html>
     <head lang="en">
         <meta charset="UTF-8">
-        <title></title>
+        <title>PresenceJS demo</title>
         <script src="../bower_components/resemblejs/resemble.js"></script>
-        <script src="../presence.js"></script>
+        <script src="../presence.min.js"></script>
     </head>
     <body>
-        <button onclick="p.start()">Start</button>
-        <button onclick="p.stop()">Stop</button>
+        <button onclick="Presence.start()">Start</button>
+        <button onclick="Presence.stop()">Stop</button>
         <span id="present" style="display: none"><h2>Your are there </h2></span>
         <span id="notPresent"><h2>You are not there</h2></span>
         <video id="video" width="640" height="640" autoplay style="display: none"></video>
@@ -17,29 +17,32 @@
         <div id="dropper"></div>
 
         <script>
-            var p = new Presence();
-            p.showSnapshots = true; //show elaboration
-            p.dropElement = document.getElementById("dropper"); //elaboration image container
-            p.canvas = document.getElementById("canvas"); //set canvas
-            p.video = document.getElementById("video"); //set video
+            Presence.showSnapshots = true; //show elaboration
+            Presence.dropElement = document.getElementById("dropper"); //elaboration image container
+            Presence.canvas = document.getElementById("canvas"); //set canvas
+            Presence.video = document.getElementById("video"); //set video
+
             //override  callbacks
-            p.onEnter = function(data) {
+            Presence.onEnter = function(data) {
                 console.log("Welcome!")
             };
-            p.onLeave = function(data) {
+
+            Presence.onLeave = function(data) {
                 console.log("Goodbye")
             };
-            p.isPresent = function(data) {
+
+            Presence.isPresent = function(data) {
                 document.getElementById("present").style.display = "block";
                 document.getElementById("notPresent").style.display = "none";
                 document.getElementById("stats").innerHTML = "Difference: " + data.mismatch + "% - Red: " + data.red + "% - Blue:" + data.blue + "% - Green:" + data.green + "% - Brightness: " + data.brightness + "%";
 
             };
-            p.isNotPresent = function(data) {
+
+            Presence.isNotPresent = function(data) {
                 document.getElementById("notPresent").style.display = "block";
                 document.getElementById("present").style.display = "none";
                 document.getElementById("stats").innerHTML = "";
             }
-</script>
+        </script>
     </body>
 </html>

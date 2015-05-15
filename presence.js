@@ -3,9 +3,29 @@
  * Email:   marcogagliardi84@gmail.com
  */
 
-var Presence = function () {
 
-    var self = this;
+// AMD with global, Node, or global
+;(function(root, factory) {
+    if(typeof define === 'function' && define.amd) {
+        // AMD. Register as an anonymous module.
+        define(['Presence'], function(Presence) {
+            // Also create a global in case some scripts
+            // that are loaded still are looking for
+            // a global even when an AMD loader is in use.
+            return (root.Presence = factory(Presence));
+        });
+    } else if(typeof exports === 'object') {
+        // Node. Does not work with strict CommonJS, but
+        // only CommonJS-like enviroments that support module.exports,
+        // like Node.
+        module.exports = factory(require('presence_js'));
+    } else {
+        // Browser globals (root is window)
+        root.Presence = factory(root.Presence);
+    }
+} (this, function(Presence) {
+
+    var self = this || global;
 
     /* Configuration */
     self.rate = 400; // refresh rate in ms
@@ -114,4 +134,6 @@ var Presence = function () {
             self.isNotPresent(self);
         }
     }
-};
+
+    return self;
+}));

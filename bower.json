@@ -7,6 +7,11 @@
   ],
   "description": "A JavaScript library that uses HTML5 controllers to detect whether someone is in front of the computer.",
   "main": "presence.js",
+  "moduleType": [
+    "amd",
+    "globals",
+    "node"
+  ],
   "keywords": [
     "JavaScript",
     "Presence",
