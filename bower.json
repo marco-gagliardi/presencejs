@@ -1,0 +1,26 @@
+{
+  "name": "presencejs",
+  "version": "0.0.0",
+  "homepage": "https://github.com/marco-gagliardi/presencejs",
+  "authors": [
+    "marco-gagliardi <marcogagliardi84@gmail.com>"
+  ],
+  "description": "A JavaScript library that uses HTML5 controllers to detect whether someone is in front of the computer.",
+  "main": "presence.js",
+  "keywords": [
+    "JavaScript",
+    "Presence",
+    "UserMedia"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "devDependencies": {
+    "resemblejs": "~1.2.1"
+  }
+}

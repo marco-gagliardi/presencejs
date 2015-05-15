@@ -8,8 +8,8 @@ var Presence = function () {
     var self = this;
 
     /* Configuration */
-    self.rate = 400; //refresh rat in ms
-    self.mismatchThreshold = 0.01; //minimum  mismatch rate between two consecutive frames in order to consider presence
+    self.rate = 400; // refresh rate in ms
+    self.mismatchThreshold = 0.01; // minimum mismatch rate between two consecutive frames in order to consider presence
     self.canvas = null;
     self.context = null;
     self.video = null;
@@ -28,7 +28,6 @@ var Presence = function () {
 
 
     /* EVENT HANDLERS  */
-
     self.onEnter = function() {
         console.log("You Entered!");
     };
@@ -45,7 +44,7 @@ var Presence = function () {
     /* CONTROLLERS */
     self.stop = function () {
         if (self.interval){
-          window.clearInterval(self.interval);
+            window.clearInterval(self.interval);
         }
         localStream.stop();
     };
@@ -56,9 +55,9 @@ var Presence = function () {
         self.context = self.canvas.getContext("2d");
 
         navigator.getUserMedia = (navigator.getUserMedia ||
-                          navigator.webkitGetUserMedia ||
-                          navigator.mozGetUserMedia ||
-                          navigator.msGetUserMedia);
+        navigator.webkitGetUserMedia ||
+        navigator.mozGetUserMedia ||
+        navigator.msGetUserMedia);
 
         // Start video listeners
         if(navigator.getUserMedia) {
@@ -72,7 +71,7 @@ var Presence = function () {
         self.interval = window.setInterval(function() {
             self.context.drawImage(video, 0, 0, 640, 480);
             self.compare(self.canvas.toDataURL('image/png'));
-        }, self.rate)
+        }, self.rate);
     };
 
     self.compare = function  (elem) {
@@ -103,11 +102,13 @@ var Presence = function () {
         }
         self.mismatch = data.misMatchPercentage;
 
-        if(data.misMatchPercentage > self.mismatchThreshold){//threshold passed: PRESENT
+        if(data.misMatchPercentage > self.mismatchThreshold){
+            //threshold passed: PRESENT
             if (!self.present) self.onEnter(self);
             self.present = true;
-            self.isPresent(self)
-        } else { //threshold not passed: NOT PRESENT
+            self.isPresent(self);
+        } else {
+            //threshold not passed: NOT PRESENT
             if (self.present) self.onLeave(self);
             self.present = false;
             self.isNotPresent(self);
