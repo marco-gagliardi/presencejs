@@ -7,12 +7,15 @@ AMD, Node and browser ready
 #### Dependencies: 
 Requires [Resemble.js](http://huddle.github.io/Resemble.js/) image analysis library
 
-### Installation
+### Setup
+Issue `npm install && bower install` to resolve dependencies.
 
-Run `bower install presencejs`
+Use `grunt build` to build minified version.
+
+## Demo
+You can find a demo [here](http://marco-gagliardi.github.io/presencejs/)
 
 ### Usage
-
 First include dependencies and source:
 
 ``` javascript
