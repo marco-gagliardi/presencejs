@@ -13,7 +13,7 @@ Issue `npm install && bower install` to resolve dependencies.
 
 Use `grunt build` to build minified version.
 
-## Demo
+### Demo
 You can find a demo [here](http://marco-gagliardi.github.io/presencejs/)
 
 
@@ -54,3 +54,18 @@ and then configure Presence:
     }
 </script>
 ```
+
+### Coding guidelines
+Follow [github](https://github.com/styleguide/) guidelines
+
+### Authors
+Project created and released by
+
+* [Marco Gagliardi](mailto:marcogagliardi84@gmail.com)
+* [Massimiliano Sartoretto](mailto:massimilianosartoretto@gmail.com) ([Twitter](http://twitter.com/___Sarto))
+
+##### Feedback
+Use the [issue tracker](https://github.com/marco-gagliardi/presencejs/issues) for bugs. Mail or Tweet us for any idea that can improve the project.
+
+### License
+Released under The MIT License.
