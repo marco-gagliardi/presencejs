@@ -1,6 +1,6 @@
 ## presencejs
 
-A JavaScript library that uses HTML5controllers to detect whether someone is in front of the computer. 
+A JavaScript library that uses HTML5 controllers to detect whether someone is in front of the computer.
 ####Dependencies: 
 Requires [Resemble.js](http://huddle.github.io/Resemble.js/) image analysis library
 
