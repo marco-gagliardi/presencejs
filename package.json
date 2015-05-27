@@ -1,6 +1,6 @@
 {
   "name": "presencejs",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A JavaScript library that uses HTML5 controllers to detect whether someone is in front of the computer.",
   "main": "presence.js",
   "repository": {
