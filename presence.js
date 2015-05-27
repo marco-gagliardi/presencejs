@@ -70,14 +70,16 @@
     };
 
     self.start = function() {
-        if(!resemble) console.error("Resamble lib not found");
-        if(!self.canvas || !self.video) console.error("Configure canvas and video elements");
+        if(!resemble)
+            console.error("Resemble lib not found");
+        if(!self.canvas || !self.video)
+            console.error("Configure canvas and video elements");
         self.context = self.canvas.getContext("2d");
 
-        navigator.getUserMedia = (navigator.getUserMedia ||
+        navigator.getUserMedia = navigator.getUserMedia ||
         navigator.webkitGetUserMedia ||
         navigator.mozGetUserMedia ||
-        navigator.msGetUserMedia);
+        navigator.msGetUserMedia;
 
         // Start video listeners
         if(navigator.getUserMedia) {
@@ -89,17 +91,16 @@
         }
 
         self.interval = window.setInterval(function() {
-            self.context.drawImage(video, 0, 0, 640, 480);
-            self.compare(self.canvas.toDataURL('image/png'));
+            self.context.drawImage(self.video, 0, 0, 320, 240);
+            compare(self.canvas.toDataURL('image/png'));
         }, self.rate);
     };
 
-    self.compare = function  (elem) {
+    function compare(elem) {
         self.frames.push(elem);
         if(self.frames.length > 2) self.frames.shift();
 
         resemble(elem).onComplete(function(data){
-
             self.red = data.red;
             self.green = data.green;
             self.blue = data.blue;
@@ -109,11 +110,12 @@
         if(self.frames.length == 2){
             self.resembleControl = resemble(self.frames[0]).compareTo(self.frames[1]).onComplete(onComplete);
         }
-    };
+    }
 
     function onComplete(data){
         var diffImage = new Image();
         diffImage.src = data.getImageDataUrl();
+
         if (self.showSnapshots) {
             if(self.dropElement) {
                 self.dropElement.innerHTML = "";
@@ -122,17 +124,26 @@
         }
         self.mismatch = data.misMatchPercentage;
 
-        if(data.misMatchPercentage > self.mismatchThreshold){
+        if(data.misMatchPercentage > self.mismatchThreshold) {
             //threshold passed: PRESENT
-            if (!self.present) self.onEnter(self);
-            self.present = true;
-            self.isPresent(self);
+            setPresence(true);
         } else {
             //threshold not passed: NOT PRESENT
-            if (self.present) self.onLeave(self);
-            self.present = false;
-            self.isNotPresent(self);
+            setPresence(false);
         }
+    }
+
+    function setPresence(presence) {
+        if(presence) {
+            self.isPresent(self);
+            if(!self.present)
+                self.onEnter(self);
+        } else {
+            self.isNotPresent(self);
+            if(self.present)
+                self.onLeave(self);
+        }
+        self.present = presence;
     }
 
     return self;
