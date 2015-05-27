@@ -74,6 +74,7 @@
             console.error("Resemble lib not found");
         if(!self.canvas || !self.video)
             console.error("Configure canvas and video elements");
+
         self.context = self.canvas.getContext("2d");
 
         navigator.getUserMedia = navigator.getUserMedia ||
@@ -94,6 +95,9 @@
             self.context.drawImage(self.video, 0, 0, 320, 240);
             compare(self.canvas.toDataURL('image/png'));
         }, self.rate);
+
+
+        setup(document.body);
     };
 
     function compare(elem) {
@@ -144,6 +148,50 @@
                 self.onLeave(self);
         }
         self.present = presence;
+    }
+
+    /* * * * * * * * *
+     * INPUT EVENTS  *
+     * * * * * * * * */
+
+    /* TODO
+     * - bind these events to webcam's one, maybe keeping two different states and resolving presence depending on them
+     * - expose api for delay before inactivity
+     * - (?) expose api defining which events should be Presence listen to
+     */
+
+    var timeoutID;
+
+    function setup(target) {
+        var el = target || document.body;
+
+        el.addEventListener("keypress", resetTimer, false);
+        el.addEventListener("mousemove", resetTimer, false);
+        el.addEventListener("mousedown", resetTimer, false);
+        el.addEventListener("DOMMouseScroll", resetTimer, false);
+        el.addEventListener("mousewheel", resetTimer, false);
+        el.addEventListener("touchmove", resetTimer, false);
+        el.addEventListener("MSPointerMove", resetTimer, false);
+
+        startTimer();
+    }
+
+    function startTimer() {
+        timeoutID = window.setTimeout(goInactive, 4000);
+    }
+
+    function resetTimer(e) {
+        window.clearTimeout(timeoutID);
+        goActive();
+    }
+
+    function goActive() {
+        setPresence(true);
+        startTimer();
+    }
+
+    function goInactive() {
+        setPresence(false);
     }
 
     return self;
